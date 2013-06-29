@@ -1,4 +1,7 @@
 if (Meteor.isClient) {
+
+  Meteor.call("getVines");
+
   Template.hello.greeting = function () {
     return "Welcome to grapevine.";
   };
