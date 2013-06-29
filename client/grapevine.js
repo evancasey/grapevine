@@ -1,4 +1,6 @@
 if (Meteor.isClient) {
+
+  Meteor.call("getVines");
   
   var handle = Meteor.subscribe('vines');
 
