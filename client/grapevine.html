@@ -4,10 +4,22 @@
 
 <body>
   {{> hello}}
+</br>
+  {{> video}}
 </body>
 
 <template name="hello">
   <h1>Hello World!</h1>
   {{greeting}}
   <input type="button" value="Click" />
+</template>
+
+<template name="video">
+	<iframe class="vine-embed" 
+					src= {{vineurl}}
+					width="600" 
+					height="600" 
+					frameborder="0">
+	</iframe>
+	<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
 </template>
