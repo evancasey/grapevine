@@ -18,6 +18,7 @@ if (Meteor.isClient) {
 
   Template.video.vineurl = function () {
     if (handle.ready()){
+      
       var id = getRandomVineId();
       return "https://vine.co/v/" + id + "/embed/simple";
     }
