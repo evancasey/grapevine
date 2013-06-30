@@ -1,6 +1,4 @@
 if (Meteor.isClient) {
-
-  Meteor.call("getVines");
   
   Meteor.startup(function () {
     Deps.autorun(function () {
