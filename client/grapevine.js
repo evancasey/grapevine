@@ -2,8 +2,6 @@ if (Meteor.isClient) {
   
   var handle = Meteor.subscribe('vines');
 
-
-
   function getRandomVineId(){    
     var v = Vines.find({}).fetch();
     var rando=Math.floor(Math.random()*11) // random number between 1 and 10..
@@ -13,7 +11,6 @@ if (Meteor.isClient) {
 
   // templates
   Template.hello.greeting = function () {
-      Meteor.call("getVines");
       return "Welcome to grapevine.";
     };
 
