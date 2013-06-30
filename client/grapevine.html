@@ -3,9 +3,17 @@
 </head>
 
 <body>
+  <div class="row">
+  	<div class="large-8 large-centered columns">
+  		<h1 class="logo">Grapevine</h1>
+  	</div>
+  </div>
+  <div class="row">
+  	<div align="center" class="large-8 large-centered columns stage">
+  		{{> video}}
+  	</div>
+  </div>
   {{> hello}}
-</br>
-  {{> video}}
 </body>
 
 <template name="hello">
@@ -15,10 +23,10 @@
 </template>
 
 <template name="video">
-	<iframe class="vine-embed" 
+	<iframe class="vine-embed video" 
 					src= {{vineurl}}
-					width="600" 
-					height="600" 
+					width="480" 
+					height="480" 
 					frameborder="0">
 	</iframe>
 	<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
