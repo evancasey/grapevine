@@ -1,8 +1,8 @@
 if (Meteor.isClient) {
-
-  Meteor.call("getVines");
   
   var handle = Meteor.subscribe('vines');
+
+
 
   function getRandomVineId(){    
     var v = Vines.find({}).fetch();
@@ -13,6 +13,7 @@ if (Meteor.isClient) {
 
   // templates
   Template.hello.greeting = function () {
+      Meteor.call("getVines");
       return "Welcome to grapevine.";
     };
 
