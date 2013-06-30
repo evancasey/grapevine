@@ -6,6 +6,7 @@ if (Meteor.isClient) {
     var v = Vines.find({}).fetch();
     var rando=Math.floor(Math.random()*11) // random number between 1 and 10..
     var index = rando % v.length;
+    console.log(v.length);
     return v[index].vine_id;
   }
 
