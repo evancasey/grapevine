@@ -39,7 +39,7 @@ if (Meteor.isServer) {
 	                        // remove the oldest record
 	                        if (Vines.find().fetch().length > 1000) {
 	                        
-		                        remove_id = Vines.find().fetch().reverse()[0]._id;	                        
+		                        var remove_id = Vines.find().fetch().reverse()[0]._id;	                        
 		                        Vines.remove({_id : remove_id});
 		                    }
 	                        
