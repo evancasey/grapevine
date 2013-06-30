@@ -26,15 +26,15 @@ if (Meteor.isServer) {
 	            function(stream) {
 	                stream.on('data', Meteor.bindEnvironment(function(tweet) {
 
-	                    urls = tweet.entities['urls'];  
+	                    var urls = tweet.entities['urls'];  
 
 	                    if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/" !== -1)) {   
 
 
-	                        vine_id = parseURL(urls[0].display_url);
-	                        tweet_id = tweet.id; 
-	                        tweet_body = tweet.text;
-	                        user = tweet.user;  
+	                        var vine_id = parseURL(urls[0].display_url);
+	                        var tweet_id = tweet.id; 
+	                        var tweet_body = tweet.text;
+	                        var user = tweet.user;  
 
 	                        // remove the oldest record
 	                        if (Vines.find().fetch().length > 1000) {
