@@ -28,7 +28,7 @@ if (Meteor.isServer) {
 
 	                    var urls = tweet.entities['urls'];  
 
-	                    if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/" !== -1)) {   
+	                    if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/") !== -1) {   
 
 
 	                        var vine_id = parseURL(urls[0].display_url);
