@@ -1,69 +1,69 @@
 if (Meteor.isServer) {
 
-  Meteor.startup(function () {
-    // code to run on server at startup
-    
-    // enter in filter params here
-	var url = "https://api.twitter.com/1/statuses/filter.json?track=bob";
+	// code to run on server at startup
+	Meteor.startup(function () {
 
-	// break this out to another file later
-	var oauth = 
-	    {   
-	        consumer_key: "bN7Daq0GmSNA8Tbd7RFMeA",
-	        consumer_secret: "T3QP1XIFYzaQpxzuyKgVjgn1HfYtS6Ftwr7cAlcf8G4",
-	        access_token_key: "330015261-kRM2MzI4dXVNROv7Tv6Ok5LxaBabBLlX0kofiVZY",
-	        access_token_secret: "a9bKfBc6eG89SqW9FxIYfgzR2U2hqwDkHrGsWVU"
-	    };   
+		// enter in filter params here
+		var url = "https://api.twitter.com/1/statuses/filter.json?track=bob";
 
-	var twitter = Npm.require("ntwitter");			
+		// break this out to another file later
+		var oauth = 
+		    {   
+		        consumer_key: "bN7Daq0GmSNA8Tbd7RFMeA",
+		        consumer_secret: "T3QP1XIFYzaQpxzuyKgVjgn1HfYtS6Ftwr7cAlcf8G4",
+		        access_token_key: "330015261-kRM2MzI4dXVNROv7Tv6Ok5LxaBabBLlX0kofiVZY",
+		        access_token_secret: "a9bKfBc6eG89SqW9FxIYfgzR2U2hqwDkHrGsWVU"
+		    };   
 
-	function getVines() {
-    
-    	// Fiber(function() { 
-  
-            // create a new oauth connection
-            var t = new twitter(oauth);
+		var twitter = Npm.require("ntwitter");			
 
-            // call the twitter streaming api
-            t.stream(
-                'statuses/filter',
-                { track: ['vine'] },
-                function(stream) {
-                    stream.on('data', Meteor.bindEnvironment(function(tweet) {
+		function getVines() {
 
-                        urls = tweet.entities['urls'];  
+			// Fiber(function() { 
 
-                        if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/" !== -1)) {                                                  
-                            
-                            vine_id = parseURL(urls[0].display_url);
-                            tweet_id = tweet.id; 
-                            tweet_body = tweet.text;
-                            user = tweet.user;  
+		        // create a new oauth connection
+		        var t = new twitter(oauth);
 
-                            // console.log(Vines.findOne());
+		        // call the twitter streaming api
+		        t.stream(
+		            'statuses/filter',
+		            { track: ['vine'] },
+		            function(stream) {
+		                stream.on('data', Meteor.bindEnvironment(function(tweet) {
 
-                            Vines.insert({
-                                vine_id : vine_id,
-                                tweet_id : tweet_id,
-                                tweet_body : tweet_body,
-                                user : user,
-                                created_at : new Date().getTime()
-                            });
+		                    urls = tweet.entities['urls'];  
 
-                            // console.log(Vines.findOne());
-                        }                       
-                    }, function(err){}));
-                }
-            );
+		                    if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/" !== -1)) {                                                  
+		                        
+		                        vine_id = parseURL(urls[0].display_url);
+		                        tweet_id = tweet.id; 
+		                        tweet_body = tweet.text;
+		                        user = tweet.user;  
 
-		// }).run();
-    }
+		                        // console.log(Vines.findOne());
 
-	var parseURL = function(url) {
-		return url.substring(10, 21);
-	}
+		                        Vines.insert({
+		                            vine_id : vine_id,
+		                            tweet_id : tweet_id,
+		                            tweet_body : tweet_body,
+		                            user : user,
+		                            created_at : new Date().getTime()
+		                        });
 
-	getVines();
+		                        // console.log(Vines.findOne());
+		                    }                       
+		                }, function(err){}));
+		            }
+		        );
 
-  });
+			// }).run();
+		}
+
+		var parseURL = function(url) {
+			return url.substring(10, 21);
+		}
+
+		getVines();
+
+	});
 }
