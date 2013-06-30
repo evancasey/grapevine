@@ -1,13 +1,6 @@
 if (Meteor.isClient) {
   
-  Meteor.startup(function () {
-    Deps.autorun(function () {
-    Meteor.subscribe('vines', function onComplete() {
-      Session.set('vinesLoaded', true);
-      });
-    });
-  });
-
+  var handle = Meteor.subscribe('vines');
 
   function getRandomVineId(){    
     var v = Vines.find({}).fetch();
@@ -22,8 +15,7 @@ if (Meteor.isClient) {
     };
 
   Template.video.vineurl = function () {
-    var v = Vines.find({vine_id : "ha7Wbmnq6Ph"}).fetch()[0];
-    if (v){
+    if (handle.ready()){
       var id = getRandomVineId();
       return "https://vine.co/v/" + id + "/embed/simple";
     }
