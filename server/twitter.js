@@ -14,8 +14,6 @@ if (Meteor.isServer) {
 
 		var twitter = Npm.require("ntwitter");	
 
-		var x = 0;		
-
 		function getVines() {
 
 	        // create a new oauth connection
@@ -30,19 +28,22 @@ if (Meteor.isServer) {
 
 	                    urls = tweet.entities['urls'];  
 
-	                    if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/" !== -1) && x < 2) {   
+	                    if (urls.length > 0 && urls[0].display_url.indexOf("vine.co/v/" !== -1)) {   
 
 
-	                        x++;
 	                        vine_id = parseURL(urls[0].display_url);
 	                        tweet_id = tweet.id; 
 	                        tweet_body = tweet.text;
 	                        user = tweet.user;  
 
 	                        // remove the oldest record
-	                        remove_id = Vines.find().fetch().reverse()[1000]._id;	                        
-	                        Vines.remove({_id : remove_id});
+	                        if (Vines.find().fetch().length > 1000) {
 	                        
+		                        remove_id = Vines.find().fetch().reverse()[0]._id;	                        
+		                        Vines.remove({_id : remove_id});
+		                    }
+	                        
+	                        console.log(tweet.text);
 	                        Vines.insert({
 	                            vine_id : vine_id,
 	                            tweet_id : tweet_id,
